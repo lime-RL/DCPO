@@ -813,7 +813,7 @@ def agg_loss(loss_mat: torch.Tensor, loss_mask: torch.Tensor, loss_agg_mode: str
         else:
             loss = verl_F.masked_sum(loss_mat, loss_mask).sum() / (batch_response_len + 1e-8)
     elif loss_agg_mode == LossCalculator.OTM:
-        loss = verl_F.masked_sum(loss_mat, loss_mask).sum()
+        loss = verl_F.masked_mean(loss_mat, loss_mask).sum()
     elif loss_agg_mode == LossCalculator.SMTS:
         if not batch_size:
             seq_losses = torch.sum(loss_mat * loss_mask, dim=-1)  # token-sum
